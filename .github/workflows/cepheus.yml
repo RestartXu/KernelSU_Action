@@ -17,7 +17,7 @@ on:
       BOOTIMAGE:
         description: 'Boot image to get ramdisk'
         required: true
-        default: 'https://raw.githubusercontent.com/xiaoleGun/KernelSU_action/main/boot/boot-wayne-from-Miku-UI-latest.img'
+        default: 'http://140.210.210.163:15622/down/wVRUEKfTMqVD.img'
       USE_KPROBES:
         description: 'Use Kprobes'
         required: false
