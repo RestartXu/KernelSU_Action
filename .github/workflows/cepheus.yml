@@ -13,7 +13,7 @@ on:
       KERNEL_BUILD_CONFIG:
         description: 'Kernel Build Config'
         required: true
-        default: 'https://raw.githubusercontent.com/xiaoleGun/KernelSU_action/main/configs/build.config.wayne'
+        default: 'https://raw.githubusercontent.com/RestartXu/KernelSU_action/main/configs/build.config.cepheus'
       BOOTIMAGE:
         description: 'Boot image to get ramdisk'
         required: true
