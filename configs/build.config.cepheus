@@ -18,7 +18,7 @@ FILES="
 arch/arm64/boot/Image
 arch/arm64/boot/Image.gz
 arch/arm64/boot/Image.gz-dtb
-arch/arm64/boot/dts/vendor/qcom/wayne.dtb
+arch/arm64/boot/dts/vendor/qcom/cepheus.dtb
 vmlinux
 System.map
 "
