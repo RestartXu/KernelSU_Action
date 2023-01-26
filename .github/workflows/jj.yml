@@ -30,8 +30,8 @@ jobs:
     - name: Download kernel source
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        git clone ${{ github.event.inputs.KERNEL_SOURCE }} -b ${{ github.event.inputs.KERNEL_SOURCE_BRANCH }} android-kernel --depth=1
-
+        git clone ${{ github.event.inputs.KERNEL_SOURCE }} 
+        
     - name: Download kernel build config
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
