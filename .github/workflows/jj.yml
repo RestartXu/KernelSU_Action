@@ -1,0 +1,59 @@
+name: Build boot image cepheus2
+on:
+  workflow_dispatch:
+     inputs:
+      KERNEL_SOURCE:
+        description: 'Kernel Source'
+        required: true
+        default: 'https://github.com/lelaonn/Cepheus_Raphael_Kernel_MI_A11'
+      KERNEL_SOURCE_BRANCH:
+        description: 'Branch'
+        required: false
+        default: ''
+      KERNEL_BUILD_CONFIG:
+        description: 'Kernel Build Config'
+        required: true
+        default: 'https://raw.githubusercontent.com/RestartXu/KernelSU_action/main/configs/build.config.cepheus'
+      BOOTIMAGE:
+        description: 'Boot image to get ramdisk'
+        required: true
+        default: 'http://140.210.210.163:15622/down/wVRUEKfTMqVD.img'
+      USE_KPROBES:
+        description: 'If you want to use kprobes, please type "true"'
+        required: false
+
+jobs:
+  build:
+    name: Build boot image
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download kernel source
+      run: |
+        cd $GITHUB_WORKSPACE/kernel_workspace
+        git clone ${{ github.event.inputs.KERNEL_SOURCE }} -b ${{ github.event.inputs.KERNEL_SOURCE_BRANCH }} android-kernel --depth=1
+
+    - name: Download kernel build config
+      run: |
+        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
+        wget -O build.config ${{ github.event.inputs.KERNEL_BUILD_CONFIG }}
+
+    - name: Setup KernelSU
+      run: |
+        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
+        curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
+        if [ ${{ github.event.inputs.USE_KPROBES }} = true ]; then
+            echo "CONFIG_KPROBES=y" >> arch/arm64/configs/${{ github.event.inputs.KERNEL_DEFCONFIG }}
+            echo "CONFIG_HAVE_KPROBES=y" >> arch/arm64/configs/${{ github.event.inputs.KERNEL_DEFCONFIG }}
+            echo "CONFIG_KPROBE_EVENTS=y" >> arch/arm64/configs/${{ github.event.inputs.KERNEL_DEFCONFIG }}
+        fi
+
+    - name: Build boot-su.img
+      run: |
+        cd $GITHUB_WORKSPACE/kernel_workspace
+        BRANCH=${{ github.event.inputs.KERNEL_SOURCE_BRANCH }} BUILD_CONFIG=android-kernel/build.config build/build.sh
+
+    - name: Upload boot-su.img
+      uses: actions/upload-artifact@v3
+      with:
+        name: boot-su-${{ github.event.inputs.KERNEL_SOURCE_BRANCH }}-${{ env.BUILD_TIME }}.img
+        path: kernel_workspace/out/${{ github.event.inputs.KERNEL_SOURCE_BRANCH }}/dist/boot.img
