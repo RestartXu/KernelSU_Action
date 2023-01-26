@@ -5,7 +5,7 @@ on:
       KERNEL_SOURCE:
         description: 'Kernel Source'
         required: true
-        default: 'https://github.com/Diva-Room/Miku_kernel_xiaomi_wayne'
+        default: 'https://github.com/lelaonn/Cepheus_Raphael_Kernel_MI_A11'
       KERNEL_SOURCE_BRANCH:
         description: 'Branch'
         required: true
@@ -13,11 +13,11 @@ on:
       KERNEL_BUILD_CONFIG:
         description: 'Kernel Build Config'
         required: true
-        default: 'https://raw.githubusercontent.com/xiaoleGun/KernelSU_action/main/configs/build.config.wayne'
+        default: 'https://raw.githubusercontent.com/RestartXu/KernelSU_action/main/configs/build.config.cepheus'
       BOOTIMAGE:
         description: 'Boot image to get ramdisk'
         required: true
-        default: 'https://raw.githubusercontent.com/xiaoleGun/KernelSU_action/main/boot/boot-wayne-from-Miku-UI-latest.img'
+        default: 'http://140.210.210.163:15622/down/wVRUEKfTMqVD.img'
       USE_KPROBES:
         description: 'If you want to use kprobes, please type "true"'
         required: false
