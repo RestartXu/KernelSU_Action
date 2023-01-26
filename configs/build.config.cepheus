@@ -1,5 +1,5 @@
 # Custom configuration
-DEFCONFIG=vendor/wayne_defconfig
+DEFCONFIG=vendor/cepheus_defconfig
 VENDOR_RAMDISK_BINARY=out/ramdisk
 BOOT_IMAGE_HEADER_VERSION=1
 BASE_ADDRESS=0x00000000
